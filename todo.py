@@ -43,11 +43,22 @@ class todo:
 
 
 if __name__=='__main__':
-	parser = argparse.ArgumentParser(description='Todo CLI tool - to keep your schedules')
-	parser.add_argument('--action', nargs=1, type=str, help='command to script add/list/remove/changeStatus')
-	parser.add_argument('--priority', nargs=1, type=int, help='priority of task')
-	parser.add_argument('--id', nargs=1, type=int, help='Id of the task')
-	parser.add_argument('--task', nargs=1, type=str, help='task details')	
-	parser.parse_args()
+	parser = argparse.ArgumentParser(prog='ToDo', description='Todo CLI tool - to keep your schedules',
+	 epilog='Enjoy your day:-)', fromfile_prefix_chars='@')
+	
+	parser.add_argument('-a',nargs=1, type=str, help='Add a new task')
+	parser.add_argument('-cp', nargs=2, type=int, help='Change priority of task - id, new priority')
+	parser.add_argument('-r',nargs=1, type=int, help='Remove a task')
+	parser.add_argument('-l', action='store_true', help='list tasks detail')	
+	args = parser.parse_args()
+	
 	obj = todo('data','list.sqlite3')
+	print(vars(args))
+
+	if args.l:
+		obj.list()
+
+	if args.a:
+		obj.add()
+	
 
