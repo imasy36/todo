@@ -4,6 +4,7 @@
 import argparse
 import os
 import sqlite3
+from prettytable import PrettyTable
 
 version = 1.0
 class todo:
@@ -33,8 +34,10 @@ class todo:
 
 	def list(self):
 		result = self.cur.execute('SELECT *FROM Tasks;')
+		t = PrettyTable(['ID', 'Priority', 'Task'])
 		for line in result.fetchall():
-			print(line)
+			t.add_row(line)
+		print(t)
 		return
 
 	def remove(self, data):
