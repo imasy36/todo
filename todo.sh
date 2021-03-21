@@ -61,9 +61,10 @@ class todo:
 		return
 
 	def remove(self, data):
-		self.cur.execute('DELETE FROM Tasks WHERE id={};'.format(data[0]))
+		for x in data:
+			self.cur.execute('DELETE FROM Tasks WHERE id={};'.format(x))
 		self.conn.commit()
-		print('Task with Id:{} deleted successfully'.format(data[0]))
+		print('Task with Id/s:{} deleted successfully'.format(data))
 		logger.debug('Task with Id:{} deleted successfully'.format(data[0]))
 		return
 
